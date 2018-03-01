@@ -1,8 +1,9 @@
-.idea
-out
-target
-*.iml
-log
++.idea
++out
++target
++*.iml
++log
++*.patch
 
 
 
