@@ -25,8 +25,5 @@ public class MealServlet extends HttpServlet {
         List<MealWithExceed> mealsWithExceeded = MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getMealList(), 2000);
         request.setAttribute("meals", mealsWithExceeded);
         request.getRequestDispatcher("meals.jsp").forward(request, response);
-
-//        request.getRequestDispatcher("/users.jsp").forward(request, response);
-//        response.sendRedirect("meals.jsp");
     }
 }

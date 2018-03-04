@@ -7,7 +7,7 @@
 <body>
 <h3><a href="index.html">Home</a></h3>
 
-<table border=1>
+<table border=2 width="400" bgcolor="f0ffff">
     <thead>
     <tr>
         <th>Дата/Время</th>
@@ -17,11 +17,12 @@
     </thead>
     <tbody>
     <c:set var="meals" value="${requestScope.meals}" />
+    <c:set var="color" value="#004d00" />
     <c:forEach items="${meals}" var="meal">
-        <tr>
-            <td><c:out value="${meal.dateTime}" /></td>
-            <td><c:out value="${meal.description}" /></td>
-            <td><c:out value="${meal.calories}" /></td>
+        <tr style="color: ${meal.exceed ? '#d63104' : '#00ab14'}">
+            <td align="center"><c:out value="${meal.formatedDate}" /></td>
+            <td align="center"><c:out value="${meal.description}" /></td>
+            <td align="center"><c:out value="${meal.calories}" /></td>
         </tr>
     </c:forEach>
     </tbody>
