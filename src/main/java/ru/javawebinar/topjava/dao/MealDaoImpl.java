@@ -25,22 +25,22 @@ public class MealDaoImpl implements MealDao {
     }
 
     @Override
-    public void deleteMeal(int id) {
+    public void delete(int id) {
 
     }
 
     @Override
-    public void updateMeal(Meal meal) {
+    public void update(Meal meal) {
 
     }
 
     @Override
-    public Meal getMealById(int id) {
+    public Meal getById(int id) {
         return null;
     }
 
     @Override
-    public List<Meal> getMealList() {
+    public List<Meal> getList() {
         return mealsDao.stream()
                 .map(meal -> new Meal(meal.getDateTime(), meal.getDescription(), meal.getCalories()))
                 .collect(Collectors.toList());

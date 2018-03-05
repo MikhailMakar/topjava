@@ -18,7 +18,7 @@ public class Meal {
         this.dateTime = dateTime;
         this.description = description;
         this.calories = calories;
-        this.id = 1;
+        this.id = -1;
     }
 
     public int getId() {
