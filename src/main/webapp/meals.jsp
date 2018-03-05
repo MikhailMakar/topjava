@@ -17,10 +17,11 @@
     </thead>
     <tbody>
     <c:set var="meals" value="${requestScope.meals}" />
+    <c:set var="formatter" value="${requestScope.formatter}" />
     <c:set var="color" value="#004d00" />
     <c:forEach items="${meals}" var="meal">
         <tr style="color: ${meal.exceed ? '#d63104' : '#00ab14'}">
-            <td align="center"><c:out value="${meal.formatedDate}" /></td>
+            <td align="center"><c:out value="${meal.dateTime.format(formatter)}" /></td>
             <td align="center"><c:out value="${meal.description}" /></td>
             <td align="center"><c:out value="${meal.calories}" /></td>
         </tr>

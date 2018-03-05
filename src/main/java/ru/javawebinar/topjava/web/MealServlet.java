@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import static org.slf4j.LoggerFactory.getLogger;
@@ -18,6 +19,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 public class MealServlet extends HttpServlet {
     private static final Logger log = getLogger(MealServlet.class);
     private MealDaoImpl mealDaoImpl = new MealDaoImpl();
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -25,6 +27,7 @@ public class MealServlet extends HttpServlet {
 
         List<MealWithExceed> mealsWithExceeded = MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000);
         request.setAttribute("meals", mealsWithExceeded);
+        request.setAttribute("formatter", formatter);
         request.getRequestDispatcher("meals.jsp").forward(request, response);
     }
 }
