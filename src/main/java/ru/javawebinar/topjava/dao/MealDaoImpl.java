@@ -35,8 +35,9 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public void create(Meal meal) {
-        mealConcurrentMap.put(mealConcurrentMap.size()+1, meal);
-        meal.setId(mealConcurrentMap.size()+1);
+        int id = countMeals.getAndIncrement();
+        meal.setId(id);
+        mealConcurrentMap.put(id, meal);
     }
 
     @Override
@@ -62,7 +63,6 @@ public class MealDaoImpl implements MealDao {
                 meal = mealConcurrentMap.get(id);
             }
         }
-
         return meal;
     }
 
