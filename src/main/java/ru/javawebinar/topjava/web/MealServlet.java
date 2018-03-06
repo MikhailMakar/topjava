@@ -24,10 +24,14 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         log.debug("redirect to meals");
-
         List<MealWithExceed> mealsWithExceeded = MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000);
         request.setAttribute("meals", mealsWithExceeded);
         request.setAttribute("formatter", formatter);
         request.getRequestDispatcher("meals.jsp").forward(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        super.doPost(req, resp);
     }
 }

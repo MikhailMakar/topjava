@@ -20,7 +20,7 @@ public class MealsUtil {
 
         return mealList.stream()
                 .filter(Meal -> TimeUtil.isBetween(Meal.getDateTime().toLocalTime(), startTime, endTime))
-                .map(Meal -> new MealWithExceed(Meal.getDateTime(), Meal.getDescription(), Meal.getCalories(), dayAndCalories.get(Meal.getDate()) > caloriesPerDay))
+                .map(Meal -> new MealWithExceed(Meal.getDateTime(), Meal.getDescription(), Meal.getCalories(), dayAndCalories.get(Meal.getDate()) > caloriesPerDay, Meal.getId()))
                 .collect(Collectors.toList());
     }
 }

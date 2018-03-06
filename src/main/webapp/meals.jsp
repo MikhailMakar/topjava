@@ -7,12 +7,15 @@
 <body>
 <h3><a href="index.html">Home</a></h3>
 
-<table border=2 width="400" bgcolor="f0ffff">
+<table border=2 width="550" bgcolor="f0ffff">
     <thead>
     <tr>
+        <th>Id</th>
         <th>Дата/Время</th>
         <th>Описание</th>
         <th>Калории</th>
+        <th>Редактировать</th>
+        <th>Удалить</th>
     </tr>
     </thead>
     <tbody>
@@ -21,9 +24,12 @@
     <c:set var="color" value="#004d00" />
     <c:forEach items="${meals}" var="meal">
         <tr style="color: ${meal.exceed ? '#d63104' : '#00ab14'}">
+            <td align="center"><c:out value="${meal.id}" /></td>
             <td align="center"><c:out value="${meal.dateTime.format(formatter)}" /></td>
             <td align="center"><c:out value="${meal.description}" /></td>
             <td align="center"><c:out value="${meal.calories}" /></td>
+            <td align="center" style="color:#004d00"><a href="users.jsp"><input type="button" value="Редактировать"></a></td>
+            <td align="center" style="color:#004d00"><input type="reset" value="Удалить"></td>
         </tr>
     </c:forEach>
     </tbody>
