@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class MealDaoImpl implements MealDao {
 
     private static AtomicInteger countMeals = new AtomicInteger(1);
-    ConcurrentMap<Integer, Meal> mealConcurrentMap = new ConcurrentHashMap<>();
+    private ConcurrentMap<Integer, Meal> mealConcurrentMap = new ConcurrentHashMap<>();
 
     {
         List<Meal> mealsDao = Arrays.asList(
@@ -56,7 +56,7 @@ public class MealDaoImpl implements MealDao {
 
     @Override
     public Meal getById(int id) {
-        Meal meal = null;
+        Meal meal = new Meal();
 
         for (int i: mealConcurrentMap.keySet()) {
             if (id != 0 && id == i){

@@ -11,11 +11,11 @@
     <thead>
     <tr>
         <th>Id</th>
-        <th>Дата/Время</th>
-        <th>Описание</th>
-        <th>Калории</th>
-        <th>Редактировать</th>
-        <th>Удалить</th>
+        <th>Date</th>
+        <th>Description</th>
+        <th>Calories</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     </thead>
     <tbody>
@@ -29,13 +29,13 @@
             <td align="center"><c:out value="${meal.dateTime}" /></td>
             <td align="center"><c:out value="${meal.description}" /></td>
             <td align="center"><c:out value="${meal.calories}" /></td>
-            <td align="center" style="color:#004d00"><a href="meals?action=edit&id=${meal.id}"><input type="button" value="Редактировать"></a></td>
-            <td align="center" style="color:#004d00"><a href="meals?action=delete&id=${meal.id}"><input type="reset" value="Удалить"></a></td>
+            <td align="center" style="color:#004d00"><a href="meals?action=edit&id=${meal.id}"><input type="button" value="Edit"></a></td>
+            <td align="center" style="color:#004d00"><a href="meals?action=delete&id=${meal.id}"><input type="reset" value="Delete"></a></td>
         </tr>
     </c:forEach>
     </tbody>
 </table>
-<p><a href="meals?action=insert"><input type="button" value="Добавить прием пищи"></a></p>
+<p><a href="meals?action=insert"><input type="button" value="Add Meal"></a></p>
 
 </body>
 </html>

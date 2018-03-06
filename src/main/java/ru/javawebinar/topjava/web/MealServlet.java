@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.web;
 import org.slf4j.Logger;
 import ru.javawebinar.topjava.dao.MealDaoImpl;
 import ru.javawebinar.topjava.model.Meal;
-import ru.javawebinar.topjava.model.MealWithExceed;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import javax.servlet.RequestDispatcher;
@@ -23,7 +22,7 @@ public class MealServlet extends HttpServlet {
     private MealDaoImpl mealDaoImpl = new MealDaoImpl();
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static String INSERT_OR_EDIT = "/editmeal.jsp";
-    private static String LIST_USER = "/meals.jsp";
+    private static String LIST_MEALS = "/meals.jsp";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,7 +36,7 @@ public class MealServlet extends HttpServlet {
         if (action.equalsIgnoreCase("delete")){
             int mealId = Integer.parseInt(request.getParameter("id"));
             mealDaoImpl.delete(mealId);
-            forward = LIST_USER;
+            forward = LIST_MEALS;
             request.setAttribute("meals", MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000));
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
@@ -45,7 +44,7 @@ public class MealServlet extends HttpServlet {
             Meal meal = mealDaoImpl.getById(mealId);
             request.setAttribute("mealInstance", meal);
         } else if (action.equalsIgnoreCase("listmeals")){
-            forward = LIST_USER;
+            forward = LIST_MEALS;
             request.setAttribute("meals", MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000));
         } else {
             forward = INSERT_OR_EDIT;
@@ -58,24 +57,22 @@ public class MealServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        Meal meal = new Meal();
         LocalDateTime localDateTime = LocalDateTime.parse(request.getParameter("date"));
-        meal.setDateTime(localDateTime);
-        meal.setDescription(request.getParameter("description"));
+        String description = request.getParameter("description");
         int calories = Integer.parseInt(request.getParameter("calories"));
-        meal.setCalories(calories);
+        Meal meal = new Meal(localDateTime, description, calories);
 
-        String mealId = request.getParameter("id");
-        if(mealId == null || mealId.isEmpty())
+        String id = request.getParameter("id");
+        if(id == null || id.isEmpty())
         {
             mealDaoImpl.create(meal);
         }
         else
         {
-            meal.setId(Integer.parseInt(mealId));
+            meal.setId(Integer.parseInt(id));
             mealDaoImpl.update(meal);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher(LIST_USER);
+        RequestDispatcher dispatcher = request.getRequestDispatcher(LIST_MEALS);
         request.setAttribute("meals", MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000));
         dispatcher.forward(request, response);
     }
