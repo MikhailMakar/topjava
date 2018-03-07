@@ -58,7 +58,6 @@ public class MealDaoImpl implements MealDao {
     @Override
     public Meal get(int id) {
         Meal meal = null;
-
         for (int i: mealConcurrentMap.keySet()) {
             if (id != 0 && id == i){
                 meal = mealConcurrentMap.get(id);
