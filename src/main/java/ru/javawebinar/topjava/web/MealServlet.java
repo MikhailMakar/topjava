@@ -41,7 +41,6 @@ public class MealServlet extends HttpServlet {
 //            forward = LIST_MEALS;
 //            request.setAttribute("meals", MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000));
             response.sendRedirect("meals?action=listmeals");
-
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
             int mealId = Integer.parseInt(request.getParameter("id"));
@@ -49,7 +48,6 @@ public class MealServlet extends HttpServlet {
             request.setAttribute("mealInstance", meal);
             RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
             dispatcher.forward(request, response);
-
         } else if (action.equalsIgnoreCase("listmeals")){
             forward = LIST_MEALS;
             request.setAttribute("meals", MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000));
