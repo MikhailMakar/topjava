@@ -7,7 +7,6 @@
 </head>
 <body>
 <h2>Meal</h2>
-
 <c:set var="meal" value="${requestScope.mealInstance}" />
 <c:set var="formatter" value="${requestScope.formatter}" />
 <form action="meals" method="post">
@@ -15,9 +14,7 @@
     Дата/Время: <input type="text" name="date" value="${meal.dateTime.format(formatter)}" ><br />
     Описание: <input type="text" name="description" value="${meal.description}" ><br />
     Калории: <input type="text" name="calories" value="${meal.calories}" ><br />
-
     <input type="submit" value="Отправить" />
 </form>
-
 </body>
 </html>
