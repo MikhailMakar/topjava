@@ -26,11 +26,12 @@ public class MealDaoImpl implements MealDao {
                 new Meal(LocalDateTime.of(2015, Month.MAY, 31, 13, 0), "Обед", 500),
                 new Meal(LocalDateTime.of(2015, Month.MAY, 31, 20, 0), "Ужин", 510)
         );
-        for (Meal m: mealsDao) {
-            mealConcurrentMap.put(countMeals.get(), m);
-            m.setId(countMeals.get());
-            countMeals.getAndIncrement();
-        }
+//        for (Meal m: mealsDao) {
+//            mealConcurrentMap.put(countMeals.get(), m);
+//            m.setId(countMeals.get());
+//            countMeals.getAndIncrement();//аналог кода снизу, также использует счётчик метода create!
+//        }
+        mealsDao.forEach(this::create);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class MealDaoImpl implements MealDao {
     }
 
     @Override
-    public void delete(int id) {
+    public void remove(int id) {
         for (int i: mealConcurrentMap.keySet()) {
             if(id != 0 && id == i){
                 mealConcurrentMap.remove(id);
@@ -55,8 +56,8 @@ public class MealDaoImpl implements MealDao {
     }
 
     @Override
-    public Meal getById(int id) {
-        Meal meal = new Meal();
+    public Meal get(int id) {
+        Meal meal = null;
 
         for (int i: mealConcurrentMap.keySet()) {
             if (id != 0 && id == i){
@@ -70,7 +71,7 @@ public class MealDaoImpl implements MealDao {
     public List<Meal> getList() {
         List<Meal> resultList = new ArrayList<>();
         for (Meal meal: mealConcurrentMap.values()) {
-            resultList.add(new Meal(meal.getDateTime(), meal.getDescription(), meal.getCalories(), meal.getId()));
+            resultList.add(new Meal(meal.getId(), meal.getDateTime(), meal.getDescription(), meal.getCalories()));
         }
         return resultList;
     }

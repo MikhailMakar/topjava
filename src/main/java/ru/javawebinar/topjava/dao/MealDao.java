@@ -7,8 +7,8 @@ import java.util.List;
 public interface MealDao {
 
     void create(Meal meal);
-    void delete(int id);
+    void remove(int id);
     void update(Meal meal);
-    Meal getById(int id);
+    Meal get(int id);
     List<Meal> getList();
 }
