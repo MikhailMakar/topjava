@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib uri="http://sargue.net/jsptags/time" prefix="javatime" %>
 <html>
 <head>
     <title>Meal</title>
@@ -14,6 +13,7 @@
 
 
 <form action="meals" method="post">
+
     <input type="text" name="id" value="${meal.id}" hidden/>
     Дата/Время: <input type="text" name="date" value="${meal.dateTime.format(formatter)}" ><br />
     Описание: <input type="text" name="description" value="${meal.description}" ><br />

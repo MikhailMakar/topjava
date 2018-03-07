@@ -38,22 +38,28 @@ public class MealServlet extends HttpServlet {
         if (action.equalsIgnoreCase("delete")){
             int mealId = Integer.parseInt(request.getParameter("id"));
             mealDaoImpl.remove(mealId);
-            forward = LIST_MEALS;
-            request.setAttribute("meals", MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000));
-//            response.sendRedirect("meals");
+//            forward = LIST_MEALS;
+//            request.setAttribute("meals", MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000));
+            response.sendRedirect("meals?action=listmeals");
+
         } else if (action.equalsIgnoreCase("edit")){
             forward = INSERT_OR_EDIT;
             int mealId = Integer.parseInt(request.getParameter("id"));
             Meal meal = mealDaoImpl.get(mealId);
             request.setAttribute("mealInstance", meal);
+            RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
+            dispatcher.forward(request, response);
+
         } else if (action.equalsIgnoreCase("listmeals")){
             forward = LIST_MEALS;
             request.setAttribute("meals", MealsUtil.getFilteredWithExceededByStream(mealDaoImpl.getList(), LocalTime.MIN, LocalTime.MAX, 2000));
+            RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
+            dispatcher.forward(request, response);
         } else {
             forward = INSERT_OR_EDIT;
+            RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
+            dispatcher.forward(request, response);
         }
-        RequestDispatcher dispatcher = request.getRequestDispatcher(forward);
-        dispatcher.forward(request, response);
     }
 
     @Override

@@ -74,13 +74,6 @@
             <version>1.2</version>
         </dependency>
 
-        <!-- Tags for DateTime api <javatime> -->
-        <dependency>
-            <groupId>net.sargue</groupId>
-            <artifactId>java-time-jsptags</artifactId>
-            <version>1.1.4</version>
-        </dependency>
-
     </dependencies>
 
     <profiles>
