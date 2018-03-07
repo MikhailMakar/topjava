@@ -34,7 +34,6 @@ public class MealServlet extends HttpServlet {
         request.setAttribute("formatter", formatter);
         String forward="";
         String action = request.getParameter("action");
-
         if (action.equalsIgnoreCase("delete")){
             int mealId = Integer.parseInt(request.getParameter("id"));
             mealDaoImpl.remove(mealId);
