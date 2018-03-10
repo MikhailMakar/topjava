@@ -7,15 +7,16 @@ import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
 
 import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 @Repository("inMemoryUserRepositoryImpl")
 public class InMemoryUserRepositoryImpl implements UserRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepositoryImpl.class);
-    private HashMap<Integer, User> repository = new HashMap<>();
+    private Map<Integer, User> repository = new ConcurrentHashMap<>();
     private AtomicInteger userCounter = new AtomicInteger(0);
 
     @Override
