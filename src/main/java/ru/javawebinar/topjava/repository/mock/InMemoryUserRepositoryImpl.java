@@ -15,16 +15,16 @@ import java.util.stream.Collectors;
 @Repository
 public class InMemoryUserRepositoryImpl implements UserRepository {
     private static final Logger log = LoggerFactory.getLogger(InMemoryUserRepositoryImpl.class);
-    private HashMap<Integer, User> userRepository = new HashMap<>();
+    private HashMap<Integer, User> repository = new HashMap<>();
     private AtomicInteger userCounter = new AtomicInteger(0);
 
     @Override
     public boolean delete(int id) {
         log.info("delete {}", id);
 
-        for (User user: userRepository.values()) {
+        for (User user: repository.values()) {
             if (user.getId() == id) {
-                userRepository.remove(id);
+                repository.remove(id);
                 return true;
             }
         }
@@ -37,26 +37,26 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
 
         if (user.isNew()) {
             user.setId(userCounter.incrementAndGet());
-            userRepository.put(user.getId(), user);
+            repository.put(user.getId(), user);
             return user;
         }
-        return userRepository.computeIfPresent(user.getId(), (id, oldMeal) -> user);
+        return repository.computeIfPresent(user.getId(), (id, oldMeal) -> user);
     }
 
     @Override
     public User get(int id) {
         log.info("get {}", id);
-        return userRepository.values().stream()
+        return repository.values().stream()
                 .filter(user -> user.getId() == id)
                 .findFirst()
-                .map(user -> userRepository.get(id))
+                .map(user -> repository.get(id))
                 .orElse(null);
     }
 
     @Override
     public List<User> getAll() {
         log.info("getAll");
-        return userRepository.values().stream()
+        return repository.values().stream()
                 .sorted(Comparator.comparing(User::getName))
                 .collect(Collectors.toList());
     }
@@ -64,10 +64,10 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     @Override
     public User getByEmail(String email) {
         log.info("getByEmail {}", email);
-        return userRepository.values().stream()
+        return repository.values().stream()
                 .filter(user -> user.getEmail().equals(email))
                 .findFirst()
-                .map(user -> userRepository.get(user.getId()))
+                .map(user -> repository.get(user.getId()))
                 .orElse(null);
     }
 }
