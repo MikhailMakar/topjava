@@ -19,6 +19,8 @@
 
     <context:component-scan base-package="ru.javawebinar.**.service"/>
 
-    <context:component-scan base-package="ru.javawebinar.**.web"/>
+    <context:component-scan base-package="ru.javawebinar.**.user"/>
+
+    <context:component-scan base-package="ru.javawebinar.**.meal"/>
 
 </beans>
