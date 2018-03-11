@@ -3,6 +3,7 @@ package ru.javawebinar.topjava.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
 import ru.javawebinar.topjava.repository.UserRepository;
@@ -20,12 +21,9 @@ public class MealServiceImpl implements MealService {
 
     private final MealRepository repository;
 
-    private final UserRepository userRepository;
-
     @Autowired
-    public MealServiceImpl(@Qualifier("inMemoryMealRepositoryImpl") MealRepository repository, @Qualifier("inMemoryUserRepositoryImpl") UserRepository userRepository) {
+    public MealServiceImpl(@Qualifier("inMemoryMealRepositoryImpl") MealRepository repository) {
         this.repository = repository;
-        this.userRepository = userRepository;
     }
 
     @Override
@@ -55,7 +53,7 @@ public class MealServiceImpl implements MealService {
 
     @Override
     public List<MealWithExceed> getAllWithExceed(int userId) {
-        return MealsUtil.getWithExceeded(repository.getAll(userId), userRepository.get(userId).getCaloriesPerDay());
+        return MealsUtil.getWithExceeded(repository.getAll(userId), AuthorizedUser.getCaloriesPerDay());
     }
 
 }

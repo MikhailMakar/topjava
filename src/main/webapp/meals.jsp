@@ -47,7 +47,29 @@
                 <td><a href="meals?action=delete&id=${meal.id}">Delete</a></td>
             </tr>
         </c:forEach>
-    </table>
+    </table border="1" cellpadding="8" cellspacing="0">
+    <h2>Filter by Date/Time</h2>
+    <form method="post" action="meals">
+        <input type="hidden" name="id" value="${meal.id}">
+        <dl>
+            <dt>From Date:</dt>
+            <dd><input type="text" value="Date" name="dateTime" required></dd>
+        </dl>
+        <dl>
+            <dt>To Date:</dt>
+            <dd><input type="text" value="Date" name="description" required></dd>
+        </dl>
+        <dl>
+            <dt>From Time:</dt>
+            <dd><input type="text" value="Time" name="calories" required></dd>
+        </dl>
+        <dl>
+            <dt>To Time:</dt>
+            <dd><input type="text" value="Time" name="calories" required></dd>
+        </dl>
+        <button type="submit">Accept</button>
+        <button onclick="window.history.back()" type="button">Drop</button>
+    </form>
 </section>
 </body>
 </html>
