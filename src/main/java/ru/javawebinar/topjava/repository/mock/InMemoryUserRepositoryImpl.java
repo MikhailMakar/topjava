@@ -40,9 +40,10 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     @Override
     public User get(int id) {
         log.info("get {}", id);
-        if(repository.get(id).getId() == id){
-            return repository.get(id);
-        } else return null;
+        User user = repository.get(id);
+        if (user != null && user.getId() == id) {
+                return user;
+        }else return null;
     }
 
     @Override
