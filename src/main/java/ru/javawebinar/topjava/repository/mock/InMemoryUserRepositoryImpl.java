@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.User;
 import ru.javawebinar.topjava.repository.UserRepository;
+import ru.javawebinar.topjava.util.UserUtil;
 
 import java.util.Comparator;
 import java.util.List;
@@ -19,10 +20,8 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     private Map<Integer, User> repository = new ConcurrentHashMap<>();
     private AtomicInteger userCounter = new AtomicInteger(0);
 
-    @Override
-    public boolean delete(int id) {
-        log.info("delete {}", id);
-        return  repository.remove(id) != null;
+    {
+        UserUtil.USERS.forEach(this::save);
     }
 
     @Override
@@ -35,6 +34,12 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
             return user;
         }
         return repository.computeIfPresent(user.getId(), (id, oldMeal) -> user);
+    }
+
+    @Override
+    public boolean delete(int id) {
+        log.info("delete {}", id);
+        return  repository.remove(id) != null;
     }
 
     @Override
