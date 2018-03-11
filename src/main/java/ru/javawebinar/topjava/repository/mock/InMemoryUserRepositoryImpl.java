@@ -40,11 +40,9 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     @Override
     public User get(int id) {
         log.info("get {}", id);
-        return repository.values().stream()
-                .filter(user -> user.getId() == id)
-                .findFirst()
-                .map(user -> repository.get(id))
-                .orElse(null);
+        if(repository.get(id).getId() == id){
+            return repository.get(id);
+        } else return null;
     }
 
     @Override
