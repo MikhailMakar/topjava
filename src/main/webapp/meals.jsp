@@ -49,26 +49,25 @@
         </c:forEach>
     </table border="1" cellpadding="8" cellspacing="0">
     <h2>Filter by Date/Time</h2>
-    <form method="post" action="meals">
-        <input type="hidden" name="id" value="${meal.id}">
+    <form method="get" action="meals?action=filter">
         <dl>
             <dt>From Date:</dt>
-            <dd><input type="text" value="Date" name="dateTime" required></dd>
+            <dd><input type="date" name="fromDate"></dd>
         </dl>
         <dl>
             <dt>To Date:</dt>
-            <dd><input type="text" value="Date" name="description" required></dd>
+            <dd><input type="date" name="toDate"></dd>
         </dl>
         <dl>
             <dt>From Time:</dt>
-            <dd><input type="text" value="Time" name="calories" required></dd>
+            <dd><input type="time" name="fromTime"></dd>
         </dl>
         <dl>
             <dt>To Time:</dt>
-            <dd><input type="text" value="Time" name="calories" required></dd>
+            <dd><input type="time" name="toTime"></dd>
         </dl>
         <button type="submit">Accept</button>
-        <button onclick="window.history.back()" type="button">Drop</button>
+        <%--<button onclick="window.history.back()" type="button">Drop</button>--%>
     </form>
 </section>
 </body>
