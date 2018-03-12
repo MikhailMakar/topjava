@@ -49,7 +49,8 @@
         </c:forEach>
     </table border="1" cellpadding="8" cellspacing="0">
     <h2>Filter by Date/Time</h2>
-    <form method="get" action="meals?action=filter">
+    <form method="get" action="meals">
+        <input type="hidden" name="action" value="filter">
         <dl>
             <dt>From Date:</dt>
             <dd><input type="date" name="fromDate"></dd>
@@ -67,7 +68,7 @@
             <dd><input type="time" name="toTime"></dd>
         </dl>
         <button type="submit">Accept</button>
-        <%--<button onclick="window.history.back()" type="button">Drop</button>--%>
+        <button onclick="window.history.back()" type="button">Cancel</button>
     </form>
 </section>
 </body>

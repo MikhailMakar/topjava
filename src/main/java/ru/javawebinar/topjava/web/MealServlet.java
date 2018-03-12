@@ -51,6 +51,7 @@ public class MealServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
+        log.info("doGet");
 
         switch (action == null ? "all" : action) {
             case "delete":
@@ -68,14 +69,13 @@ public class MealServlet extends HttpServlet {
                 request.getRequestDispatcher("/mealForm.jsp").forward(request, response);
                 break;
             case "filter":
-                log.info("getAll");
                 String sDate = request.getParameter("fromDate");
                 String eDate = request.getParameter("toDate");
                 String sTime = request.getParameter("fromTime");
                 String eTime = request.getParameter("toTime");
 
                 request.setAttribute("meals",
-                        mealRestController.getAllListFiltered(sTime, eTime,sDate,eDate));
+                        mealRestController.getAllListFiltered(sDate, eDate, sTime, eTime));
                 request.getRequestDispatcher("/meals.jsp").forward(request, response);
                 break;
             case "all":

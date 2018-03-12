@@ -3,8 +3,11 @@ package ru.javawebinar.topjava.repository.mock;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
+import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -52,6 +55,15 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
                 .filter(meal -> meal.getUserId() == userId)
                 .sorted(Comparator.comparing(Meal::getDateTime)
                         .reversed())
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public Collection<Meal> getFilteredByDate(int userId, LocalDate startDate, LocalDate endDate) {
+        return repository.values().stream()
+                .filter(meal -> meal.getUserId() == userId && DateTimeUtil.isBetween(meal.getDate(), startDate, endDate))
+                .sorted(Comparator.comparing(Meal::getDate)
+                        .thenComparing(Meal::getId))
                 .collect(Collectors.toList());
     }
 }

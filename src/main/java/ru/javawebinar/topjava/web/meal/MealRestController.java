@@ -41,13 +41,13 @@ public class MealRestController{
         service.update(meal, AuthorizedUser.id());
     }
 
-    public List<MealWithExceed> getAllListFiltered(String startTime, String endTime, String startDate, String endDate){
-        LocalTime sTime = LocalTime.parse(startTime);
-        LocalTime eTime = LocalTime.parse(endTime);
+    public List<MealWithExceed> getAllListFiltered(String startDate, String endDate, String startTime, String endTime){
         LocalDate sDate = LocalDate.parse(startDate);
         LocalDate eDate = LocalDate.parse(endDate);
+        LocalTime sTime = LocalTime.parse(startTime);
+        LocalTime eTime = LocalTime.parse(endTime);
 
-        return MealsUtil.getFilteredWithExceeded(service.getAll(AuthorizedUser.id()), AuthorizedUser.getCaloriesPerDay(), sDate.atTime(sTime.getHour(), sTime.getMinute()).toLocalTime(), eDate.atTime(eTime.getHour(), eTime.getMinute()).toLocalTime());
+        return MealsUtil.getFilteredWithExceeded(service.getFilteredByDate(AuthorizedUser.id(), sDate, eDate), AuthorizedUser.getCaloriesPerDay(), sTime, eTime);
     }
 
     public List<Meal> getAll(){

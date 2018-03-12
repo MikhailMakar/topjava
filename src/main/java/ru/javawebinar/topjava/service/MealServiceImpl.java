@@ -11,6 +11,7 @@ import ru.javawebinar.topjava.to.MealWithExceed;
 import ru.javawebinar.topjava.util.MealsUtil;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +55,11 @@ public class MealServiceImpl implements MealService {
     @Override
     public List<MealWithExceed> getAllWithExceed(int userId) {
         return MealsUtil.getWithExceeded(repository.getAll(userId), AuthorizedUser.getCaloriesPerDay());
+    }
+
+    @Override
+    public List<Meal> getFilteredByDate(int userId, LocalDate startDate, LocalDate endDate) {
+        return new ArrayList<>(repository.getFilteredByDate(userId, startDate, endDate));
     }
 
 }
