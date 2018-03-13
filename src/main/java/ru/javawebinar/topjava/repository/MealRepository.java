@@ -5,6 +5,7 @@ import ru.javawebinar.topjava.to.MealWithExceed;
 
 import java.time.LocalDate;
 import java.util.Collection;
+import java.util.List;
 
 public interface MealRepository {
     Meal save(Meal meal, int userId);
@@ -13,7 +14,7 @@ public interface MealRepository {
 
     Meal get(int id, int userId);
 
-    Collection<Meal> getAll(int userId);
+    List<Meal> getAll(int userId);
 
-    Collection<Meal> getFilteredByDate(int userId, LocalDate startDate, LocalDate endDate);
+    List<Meal> getFilteredByDate(int userId, LocalDate startDate, LocalDate endDate);
 }

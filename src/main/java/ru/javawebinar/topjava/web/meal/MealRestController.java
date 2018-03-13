@@ -8,6 +8,7 @@ import ru.javawebinar.topjava.AuthorizedUser;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.service.MealService;
 import ru.javawebinar.topjava.to.MealWithExceed;
+import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 
 import java.time.LocalDate;
@@ -42,12 +43,16 @@ public class MealRestController{
     }
 
     public List<MealWithExceed> getAllListFiltered(String startDate, String endDate, String startTime, String endTime){
-        LocalDate sDate = LocalDate.parse(startDate);
-        LocalDate eDate = LocalDate.parse(endDate);
-        LocalTime sTime = LocalTime.parse(startTime);
-        LocalTime eTime = LocalTime.parse(endTime);
+        LocalDate sDate = DateTimeUtil.parseDate(startDate);
+        LocalDate eDate = DateTimeUtil.parseDate(endDate);
+        LocalTime sTime = DateTimeUtil.parseTime(startTime);
+        LocalTime eTime = DateTimeUtil.parseTime(endTime);
 
-        return MealsUtil.getFilteredWithExceeded(service.getFilteredByDate(AuthorizedUser.id(), sDate, eDate), AuthorizedUser.getCaloriesPerDay(), sTime, eTime);
+        return MealsUtil.getFilteredWithExceeded(service.getFilteredByDate(AuthorizedUser.id(), sDate == null ? LocalDate.MIN : sDate, eDate == null ? LocalDate.MAX : eDate),
+                AuthorizedUser.getCaloriesPerDay(),
+                sTime == null ? LocalTime.MIN : sTime,
+                eTime == null ? LocalTime.MAX : eTime
+        );
     }
 
     public List<Meal> getAll(){

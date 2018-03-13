@@ -18,7 +18,5 @@ public interface MealService {
 
     List<Meal> getAll(int userId);
 
-    List<MealWithExceed> getAllWithExceed(int userId);
-
     List<Meal> getFilteredByDate(int userId, LocalDate startDate, LocalDate endDate);
 }
