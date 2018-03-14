@@ -3,7 +3,6 @@ package ru.javawebinar.topjava.repository.mock;
 import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.repository.MealRepository;
-import ru.javawebinar.topjava.to.MealWithExceed;
 import ru.javawebinar.topjava.util.DateTimeUtil;
 import ru.javawebinar.topjava.util.MealsUtil;
 
@@ -12,6 +11,7 @@ import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Repository("inMemoryMealRepositoryImpl")
 public class InMemoryMealRepositoryImpl implements MealRepository {
@@ -34,31 +34,37 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
         }
         // treat case: update, but absent in storage
 
-        return repository.get(meal.getId()) != null && repository.get(meal.getId()).getUserId() == userId ? repository.computeIfPresent(meal.getId(), (id, oldMeal) -> meal) : null;
+        Meal meal1 = repository.get(meal.getId());
+
+        return meal1 != null && meal1.getUserId() == userId ? repository.computeIfPresent(meal.getId(), (id, oldMeal) -> meal) : null;
+    }
+
+
+    @Override
+    public boolean checkedUserId(int id, int userId) {
+        Meal meal = repository.get(id);
+        return meal != null && meal.getUserId() == userId;
     }
 
     @Override
     public boolean delete(int id, int userId) {
-        Meal meal = repository.get(id);
-        return meal != null && meal.getUserId() == userId && repository.remove(id) != null;
+        return checkedUserId(id, userId) && repository.remove(id) != null;
     }
 
     @Override
     public Meal get(int id, int userId) {
-        Meal meal = repository.get(id);
-        return (meal != null && meal.getUserId() == userId) ? meal : null;
+        return checkedUserId(id, userId) ? repository.get(id) : null;
     }
 
     @Override
-    public List<Meal> getFilteredByUserId(int userId) {
+    public Stream<Meal> getFilteredByUserId(int userId) {
         return repository.values().stream()
-                .filter(meal -> meal.getUserId() == userId)
-                .collect(Collectors.toList());
+                .filter(meal -> meal.getUserId() == userId);
     }
 
     @Override
     public List<Meal> getAll(int userId) {
-        return getFilteredByUserId(userId).stream()
+        return getFilteredByUserId(userId)
                 .sorted(Comparator.comparing(Meal::getDateTime)
                         .reversed())
                 .collect(Collectors.toList());
@@ -66,9 +72,9 @@ public class InMemoryMealRepositoryImpl implements MealRepository {
 
     @Override
     public List<Meal> getFilteredByDate(int userId, LocalDate startDate, LocalDate endDate) {
-        return getFilteredByUserId(userId).stream()
+        return getFilteredByUserId(userId)
                 .filter(meal -> DateTimeUtil.isBetween(meal.getDate(), startDate, endDate))
-                .sorted(Comparator.comparing(Meal::getDate)
+                .sorted(Comparator.comparing(Meal::getDateTime)
                         .thenComparing(Meal::getId))
                 .collect(Collectors.toList());
     }

@@ -45,8 +45,7 @@ public class InMemoryUserRepositoryImpl implements UserRepository {
     @Override
     public User get(int id) {
         log.info("get {}", id);
-        User user = repository.get(id);
-        return  (user != null && user.getId() == id) ? user : null;
+        return repository.get(id);
     }
 
     @Override
