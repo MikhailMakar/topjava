@@ -9,6 +9,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 import ru.javawebinar.topjava.model.Meal;
+import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -16,6 +17,7 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 import static ru.javawebinar.topjava.MealTestData.*;
+import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 //import static ru.javawebinar.topjava.MealTestData.assertMatch;
 
@@ -53,6 +55,11 @@ public class MealServiceTest {
         assertMatch(service.get(MEAL1.getId(), USER_ID), updated);
     }
 
+    @Test(expected = NotFoundException.class)
+    public void updateNotYours() {
+        service.update(MEAL2, ADMIN_ID);
+    }
+
     @Test
     public void get() {
         Meal got = new Meal(MEAL1);
@@ -60,10 +67,20 @@ public class MealServiceTest {
         assertMatch(got, MEAL1);
     }
 
+    @Test(expected = NotFoundException.class)
+    public void getNotYours() {
+        service.get(MEAL1.getId(), ADMIN_ID);
+    }
+
     @Test
     public void delete() {
         service.delete(MEAL1.getId(), USER_ID);
         assertMatch(service.getAll(USER_ID),MEAL6, MEAL5, MEAL4, MEAL3, MEAL2);
+    }
+
+    @Test(expected = NotFoundException.class)
+    public void deleteNotYours() {
+        service.delete(MEAL1.getId(), ADMIN_ID);
     }
 
     @Test
