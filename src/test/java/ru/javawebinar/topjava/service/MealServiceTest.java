@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import ru.javawebinar.topjava.model.Meal;
 import ru.javawebinar.topjava.util.exception.NotFoundException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
@@ -85,10 +86,14 @@ public class MealServiceTest {
 
     @Test
     public void getBetweenDates() {
+        List<Meal> filtered = service.getBetweenDates(LocalDate.of(2015, Month.MAY, 30), LocalDate.of(2015, Month.MAY, 30), USER_ID);
+        assertMatch(filtered, MEAL1, MEAL2, MEAL3);
     }
 
     @Test
     public void getBetweenDateTimes() {
+        List<Meal> filtered = service.getBetweenDateTimes(LocalDateTime.of(2015, Month.MAY, 31, 10, 0), LocalDateTime.of(2015, Month.MAY, 31, 20, 0), USER_ID);
+        assertMatch(filtered, MEAL4, MEAL5, MEAL6);
     }
 
     @Test
