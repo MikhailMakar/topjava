@@ -63,9 +63,7 @@ public class MealServiceTest {
 
     @Test
     public void get() {
-        Meal got = new Meal(MEAL1);
-        service.get(MEAL1.getId(), USER_ID);
-        assertMatch(got, MEAL1);
+        assertMatch(service.get(MEAL1_ID, USER_ID), MEAL1);
     }
 
     @Test(expected = NotFoundException.class)
