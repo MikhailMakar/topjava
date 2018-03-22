@@ -1,3 +1,7 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/5ad40f14cfdd4f0284bfa8fc6a24af7a)](https://app.codacy.com/app/javawebinar/topjava)
+[![Build Status](https://travis-ci.org/JavaWebinar/topjava.svg?branch=master)](https://travis-ci.org/JavaWebinar/topjava)
+[![VersionEye](https://www.versioneye.com/user/projects/5ab411380fb24f44b0618d9f/badge.svg)](https://www.versioneye.com/user/projects/5ab411380fb24f44b0618d9f)
+
 Java Enterprise Online Project 
 ===============================
 Разработка полнофункционального Spring/JPA Enterprise приложения c авторизацией и правами доступа на основе ролей с использованием наиболее популярных инструментов и технологий Java: Maven, Spring MVC, Security, JPA(Hibernate), REST(Jackson), Bootstrap (css,js), datatables, jQuery + plugins, Java 8 Stream and Time API и хранением в базах данных Postgresql и HSQLDB.
