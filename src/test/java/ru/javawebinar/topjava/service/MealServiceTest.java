@@ -33,6 +33,9 @@ public class MealServiceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    @Rule
+    public SimpleRule simpleRule = new SimpleRule();
+
     static {
         SLF4JBridgeHandler.install();
     }
