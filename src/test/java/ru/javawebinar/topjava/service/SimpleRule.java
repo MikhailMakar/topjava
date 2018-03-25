@@ -12,15 +12,15 @@ public class SimpleRule implements MethodRule {
         return new Statement() {
             @Override
             public void evaluate() throws Throwable {
-                System.out.println("before");
+                System.out.println("Method start!");
                 long startTime = System.currentTimeMillis();
                 try {
                     statement.evaluate();
                 } finally {
                     long stopTime = System.currentTimeMillis();
                     long elapsedTime = stopTime - startTime;
-                    System.out.println(frameworkMethod.getName() + " " + elapsedTime + " ms");
-                    System.out.println("after");
+                    System.out.println("Method name: " + frameworkMethod.getName() + " " + elapsedTime + " ms");
+                    System.out.println("Method end!");
                 }
             }
         };
