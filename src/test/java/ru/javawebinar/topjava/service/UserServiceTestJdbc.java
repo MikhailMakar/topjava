@@ -1,4 +1,8 @@
 package ru.javawebinar.topjava.service;
 
-public class UserServiceTestJdbc {
+
+import org.springframework.test.context.ActiveProfiles;
+
+@ActiveProfiles(profiles = {"jdbc","postgres"})
+public class UserServiceTestJdbc extends UserServiceTest {
 }
