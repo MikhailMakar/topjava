@@ -17,6 +17,8 @@ public interface MealService {
         return getBetweenDateTimes(LocalDateTime.of(startDate, LocalTime.MIN), LocalDateTime.of(endDate, LocalTime.MAX), userId);
     }
 
+    public Meal getMealOfUser(int id, int userId) throws NotFoundException;
+
     List<Meal> getBetweenDateTimes(LocalDateTime startDateTime, LocalDateTime endDateTime, int userId);
 
     List<Meal> getAll(int userId);
