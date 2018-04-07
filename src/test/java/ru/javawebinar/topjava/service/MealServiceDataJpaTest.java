@@ -10,7 +10,7 @@ import static ru.javawebinar.topjava.MealTestData.ADMIN_MEAL_ID;
 import static ru.javawebinar.topjava.MealTestData.assertMatch;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 
-@ActiveProfiles(profiles = {"datajpa","postgres"})
+@ActiveProfiles("datajpa")
 public class MealServiceDataJpaTest extends MealServiceTest {
 
     @Test

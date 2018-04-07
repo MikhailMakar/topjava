@@ -9,7 +9,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static ru.javawebinar.topjava.UserTestData.USER;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
-@ActiveProfiles(profiles = {"datajpa","postgres"})
+@ActiveProfiles("datajpa")
 public class UserServiceDataJpaTest extends UserServiceTest {
 
     @Test
