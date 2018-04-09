@@ -8,20 +8,19 @@ import org.springframework.stereotype.Repository;
 import ru.javawebinar.topjava.model.Meal;
 
 import javax.sql.DataSource;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
 @Profile("postgres")
-public class PostgresJdbcMealRepositoryImpl extends AbstractJdbcMealRepositoryImpl {
+public class PostgresJdbcMealRepositoryImpl extends AbstractJdbcMealRepositoryImpl<LocalDateTime> {
     public PostgresJdbcMealRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         super(dataSource, jdbcTemplate, namedParameterJdbcTemplate);
     }
 
     @Override
-    public Object getFixedDate(LocalDateTime localDateTime) {
+    public <T> T getFixedDate (T localDateTime) {
         return localDateTime;
     }
-
-
 }

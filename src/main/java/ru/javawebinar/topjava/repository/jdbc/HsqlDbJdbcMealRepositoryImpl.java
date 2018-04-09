@@ -14,14 +14,14 @@ import java.util.List;
 
 @Repository
 @Profile("hsqldb")
-public class HsqlDbJdbcMealRepositoryImpl extends AbstractJdbcMealRepositoryImpl {
+public class HsqlDbJdbcMealRepositoryImpl extends AbstractJdbcMealRepositoryImpl<Timestamp> {
     public HsqlDbJdbcMealRepositoryImpl(DataSource dataSource, JdbcTemplate jdbcTemplate, NamedParameterJdbcTemplate namedParameterJdbcTemplate) {
         super(dataSource, jdbcTemplate, namedParameterJdbcTemplate);
     }
 
     @Override
-    public Object getFixedDate(LocalDateTime localDateTime) {
-        return Timestamp.valueOf(localDateTime);
+    public <T> T getFixedDate (T localDateTime) {
+        return (T) Timestamp.valueOf((LocalDateTime) localDateTime);
     }
 }
 
