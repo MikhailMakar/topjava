@@ -58,6 +58,7 @@ public class JspMealController {
         model.addAttribute("meal", meal);
         return "mealForm";
     }
+
     @GetMapping
     public String allMeal (Model model) {
         int userId = AuthorizedUser.id();
@@ -95,7 +96,6 @@ public class JspMealController {
             @RequestParam("startTime") String startTimeParam,
             @RequestParam("endTime") String endTimeParam,
             Model model) {
-        int userId = AuthorizedUser.id();
         LocalDate startDate = parseLocalDate(startDateParam);
         LocalDate endDate = parseLocalDate(endDateParam);
         LocalTime startTime = parseLocalTime(startTimeParam);

@@ -5,7 +5,7 @@
 +<jsp:include page="fragments/formHeader.jsp"/>
 <body>
 <section>
-    <h3><a href="index.html">Home</a></h3>
+    <h3><a href="index.jsp">Home</a></h3>
     <h2>${param.action == 'create' ? 'Create meal' : 'Edit meal'}</h2>
     <hr>
     <jsp:useBean id="meal" type="ru.javawebinar.topjava.model.Meal" scope="request"/>
